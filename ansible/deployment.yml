@@ -1,0 +1,22 @@
+---
+ hosts:
+   user: ec2-user
+   become: yes
+   connection: ssh
+
+     ansible_ssh_private_key_file: "/etc/ansible/monolithic.pem"
+     ansible_ssh_user: "ec2-user"
+
+       - name: install the git 
+         action: yum name=git state=present
+
+       - name: install the httpd 
+         action:yum name=httpd state=present
+
+       - name: restart the https 
+         service: name=httpd state=restarted
+
+       - name: get the code from the 
+         git:
+           repo:
+             dest: /var/www/html
